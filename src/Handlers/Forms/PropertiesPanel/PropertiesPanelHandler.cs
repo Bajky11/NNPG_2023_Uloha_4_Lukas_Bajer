@@ -12,18 +12,21 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
         private CheckBox PropertyEdge;
         private bool suppressChangeEvent = false;
         private RadioButton PropertyNoFill;
+        private RadioButton PropertySolidColorFill;
 
-        public PropertiesPanelHandler(CheckBox propertyEdge, RadioButton propertyNoFill)
+        public PropertiesPanelHandler(CheckBox propertyEdge, RadioButton propertyNoFill, RadioButton propertySolidColorFill)
         {
             PropertyEdge = propertyEdge;
             PropertyNoFill = propertyNoFill;
+            PropertySolidColorFill = propertySolidColorFill;
         }
 
-        public void SetProperties(bool propertyEdge, bool propertyNoFill)
+        public void SetProperties(bool propertyEdge, bool propertyFill)
         {
             suppressChangeEvent = true; // Suppress the change event
             PropertyEdge.Checked = propertyEdge;
-            PropertyNoFill.Checked = propertyNoFill;
+            PropertyNoFill.Checked = propertyFill == true ? false : true;
+            PropertySolidColorFill.Checked = propertyFill == true ? true : false;
             suppressChangeEvent = false; // Re-enable the change event
         }
 
@@ -32,6 +35,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             suppressChangeEvent = true; // Suppress the change event
             PropertyEdge.Checked = false;
             PropertyNoFill.Checked = false;
+            PropertySolidColorFill.Checked = false;
             suppressChangeEvent = false; // Re-enable the change event
         }
 

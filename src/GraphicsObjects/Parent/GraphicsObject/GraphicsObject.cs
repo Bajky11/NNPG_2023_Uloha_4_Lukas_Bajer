@@ -11,8 +11,10 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
     internal abstract class GraphicsObject : IGraphicsObject
     {
         // Form properties
-        public bool DrawEdge = false;
-        public bool DrawFill = true;
+        public bool PropertyEdge { get; set; } = true;
+        public bool PropertyFill { get; set; } = false;
+        public int ZIndex { get; set; } = 0;
+
         public Brush FillBrush = Brushes.DarkGray;
         public Pen EdgePen = Pens.Blue;
 
@@ -22,6 +24,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
         // Component Methods
         public abstract bool Contains(int x, int y);
         public abstract void Draw(Graphics g);
-        public abstract void UpdatePosition(int x, int y);
+        public abstract void UpdatePosition(int deltaX, int deltaY);
+        public void Reset() { Selected = false; }
     }
 }

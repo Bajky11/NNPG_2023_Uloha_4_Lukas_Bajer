@@ -44,7 +44,7 @@
             this.PropertiesPanelFill = new System.Windows.Forms.GroupBox();
             this.PropertyHatchFill = new System.Windows.Forms.RadioButton();
             this.PropertySolidColorFill = new System.Windows.Forms.RadioButton();
-            this.propertyNoFill = new System.Windows.Forms.RadioButton();
+            this.PropertyNoFill = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTop)).BeginInit();
             this.splitContainerTop.Panel1.SuspendLayout();
             this.splitContainerTop.Panel2.SuspendLayout();
@@ -221,7 +221,7 @@
             // 
             this.PropertiesPanelFill.Controls.Add(this.PropertyHatchFill);
             this.PropertiesPanelFill.Controls.Add(this.PropertySolidColorFill);
-            this.PropertiesPanelFill.Controls.Add(this.propertyNoFill);
+            this.PropertiesPanelFill.Controls.Add(this.PropertyNoFill);
             this.PropertiesPanelFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PropertiesPanelFill.Location = new System.Drawing.Point(0, 0);
             this.PropertiesPanelFill.Name = "PropertiesPanelFill";
@@ -251,18 +251,19 @@
             this.PropertySolidColorFill.TabStop = true;
             this.PropertySolidColorFill.Text = "Jednolitá barva";
             this.PropertySolidColorFill.UseVisualStyleBackColor = true;
+            this.PropertySolidColorFill.Click += new System.EventHandler(this.PropertySolidColorFill_Click);
             // 
-            // propertyNoFill
+            // PropertyNoFill
             // 
-            this.propertyNoFill.AutoSize = true;
-            this.propertyNoFill.Location = new System.Drawing.Point(17, 19);
-            this.propertyNoFill.Name = "propertyNoFill";
-            this.propertyNoFill.Size = new System.Drawing.Size(77, 17);
-            this.propertyNoFill.TabIndex = 0;
-            this.propertyNoFill.TabStop = true;
-            this.propertyNoFill.Text = "Bez výplně";
-            this.propertyNoFill.UseVisualStyleBackColor = true;
-            this.propertyNoFill.CheckedChanged += new System.EventHandler(this.propertyNoFill_CheckedChanged);
+            this.PropertyNoFill.AutoSize = true;
+            this.PropertyNoFill.Location = new System.Drawing.Point(17, 19);
+            this.PropertyNoFill.Name = "PropertyNoFill";
+            this.PropertyNoFill.Size = new System.Drawing.Size(77, 17);
+            this.PropertyNoFill.TabIndex = 0;
+            this.PropertyNoFill.TabStop = true;
+            this.PropertyNoFill.Text = "Bez výplně";
+            this.PropertyNoFill.UseVisualStyleBackColor = true;
+            this.PropertyNoFill.Click += new System.EventHandler(this.PropertyNoFill_Click);
             // 
             // Form1
             // 
@@ -308,7 +309,7 @@
         private System.Windows.Forms.GroupBox ProperiesPanelEdge;
         private System.Windows.Forms.GroupBox PropertiesPanelFill;
         private System.Windows.Forms.CheckBox PropertyEdge;
-        private System.Windows.Forms.RadioButton propertyNoFill;
+        private System.Windows.Forms.RadioButton PropertyNoFill;
         private System.Windows.Forms.RadioButton PropertyHatchFill;
         private System.Windows.Forms.RadioButton PropertySolidColorFill;
         private System.Windows.Forms.Button ActionDelete;

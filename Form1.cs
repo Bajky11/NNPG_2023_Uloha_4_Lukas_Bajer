@@ -25,7 +25,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
         {
             InitializeComponent();
             Canvas.Paint += Canvas_Paint;
-            PropertiesPanelHandler = new PropertiesPanelHandler(PropertyEdge, propertyNoFill);
+            PropertiesPanelHandler = new PropertiesPanelHandler(PropertyEdge, PropertyNoFill, PropertySolidColorFill);
             ApplicationHandler = new ApplicationHandler(Canvas, PropertiesPanelHandler);
         }
 
@@ -41,7 +41,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         private void ActionCancel_Click(object sender, EventArgs e)
         {
-            ApplicationHandler.SetHandler(new DefaultHandler(ApplicationHandler));
+            ApplicationHandler.HandleCancelAction(new DefaultHandler(ApplicationHandler));
         }
 
         private void ActionRectangle_Click(object sender, EventArgs e)
@@ -55,16 +55,19 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         private void PropertyEdge_CheckedChanged(object sender, EventArgs e)
         {
-            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return; // Check the flag
+            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return;
 
-            ApplicationHandler.HandlePropertyChange(new Tuple<PropertyEnum, string>(PropertyEnum.PropertyEdge, PropertyEdge.Checked.ToString()));
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdge, PropertyEdge.Checked.ToString(), "bool");
         }
 
-        private void propertyNoFill_CheckedChanged(object sender, EventArgs e)
+        private void PropertyNoFill_Click(object sender, EventArgs e)
         {
-            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return; // Check the flag
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, false.ToString(), "bool");
+        }
 
-            ApplicationHandler.HandlePropertyChange(new Tuple<PropertyEnum, string>(PropertyEnum.PropertyEdge, PropertyEdge.Checked.ToString()));
+        private void PropertySolidColorFill_Click(object sender, EventArgs e)
+        {
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, true.ToString(), "bool");
         }
     }
 }

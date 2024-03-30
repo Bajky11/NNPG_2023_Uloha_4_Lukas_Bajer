@@ -9,8 +9,11 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel
     internal enum PropertyEnum
     {
         PropertyEdge,
-        PropertyNoFill,
+        PropertyFill,
         PropertySolidColorFill,
-        PropertyHatchFill
+
+        PropertyHatchFill,
+
+        ZIndex
     }
 }

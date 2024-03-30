@@ -1,10 +1,13 @@
-﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
+﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicalObjects;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,13 +54,25 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             Canvas.Click += handler.Canvas_Click;
         }
 
+        public void HandleCancelAction(Handler handler)
+        {
+            if (SelectedObject != null)
+            {
+                SelectedObject.Reset();
+            }
+            SelectedObject = null;
+            SetHandler(handler);
+            Invalidate();
+        }
+
         public void AddGraphicsObject(GraphicsObject graphicsObject)
         {
             GraphicsObjects.Add(graphicsObject);
         }
-
         public void Paint(Graphics g)
         {
+            GraphicsObjects = GraphicsObjects.OrderBy(obj => obj.ZIndex).ToList();
+
             foreach (var graphicsObject in GraphicsObjects)
             {
                 graphicsObject.Draw(g);
@@ -70,9 +85,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             Canvas.Invalidate();
         }
 
-        internal void SetSelectedObject(GraphicsObject graphicsObject)
+        internal GraphicsObject SetSelectedObject(GraphicsObject graphicsObject)
         {
-            if (SelectedObject == graphicsObject) return;
+            if (SelectedObject == graphicsObject) return null;
 
             if (SelectedObject != null)
             {
@@ -85,32 +100,58 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             if (SelectedObject != null)
             {
                 SelectedObject.Selected = true;
-                PropertiesPanelHandler.SetProperties(SelectedObject.DrawEdge, !SelectedObject.DrawFill);
+                PropertiesPanelHandler.SetProperties(SelectedObject.PropertyEdge, SelectedObject.PropertyFill);
             }
 
             Invalidate();
-
+            return SelectedObject;
         }
 
-        internal void HandlePropertyChange(Tuple<PropertyEnum, string> tuple)
+        internal void HandlePropertyChange(PropertyEnum propertyEnum, string propertyValue, string propertyValueType)
         {
             if (SelectedObject == null) return;
 
-            switch (tuple.Item1)
+            // Get the enum name as property name
+            string propertyName = propertyEnum.ToString();
+
+            // Use reflection to set the property value
+            // NOTE: Because of inheritance, if Selected is defined in a base class of obj and not directly in the class of obj, GetProperty might not find it.
+            // You may need to specify BindingFlags to search for properties in base classes as well.
+            var property = SelectedObject.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            Console.WriteLine("Found property: " + property.Name);
+            if (property != null)
             {
-                case PropertyEnum.PropertyEdge:
-                    SelectedObject.DrawEdge = bool.Parse(tuple.Item2);
-                    break;
-                case PropertyEnum.PropertyNoFill:
-                    SelectedObject.DrawFill = bool.Parse(tuple.Item2);
-                    break;
+                string selectedValue = property.GetValue(SelectedObject).ToString();
+                Console.WriteLine($"Value: {selectedValue}");
+                switch (propertyValueType)
+                {
+                    case "bool":
+                        bool newBoolValue = Convert.ToBoolean(propertyValue);
+                        property.SetValue(SelectedObject, newBoolValue);
+                        Console.WriteLine($"NEW Value: {newBoolValue}");
+                        break;
+
+                    case "int":
+                        int newIntValue;
+                        bool success = int.TryParse(propertyValue, out newIntValue);
+                        if (success)
+                        {
+                            property.SetValue(SelectedObject, newIntValue);
+                            Console.WriteLine($"NEW Value: {newIntValue}");
+                        }
+
+                        break;
+                }
             }
+            else
+            {
+                Console.WriteLine($"Property {propertyName} not found.");
+
+            }
+            Console.WriteLine();
+            Invalidate();
         }
 
-        public bool DrawEdge = false;
-        public bool DrawFill = true;
-        public Brush FillBrush = Brushes.DarkGray;
-        public Pen EdgePen = Pens.Blue;
 
         internal List<GraphicsObject> GetGraphicsObjects()
         {
@@ -132,12 +173,51 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             Invalidate();
         }
 
-        internal void HandleMoveObject(int x, int y)
+        internal void HandleMoveObject(int deltaX, int deltaY)
         {
             if (SelectedObject == null) return;
 
-            SelectedObject.UpdatePosition(x, y);
+            SelectedObject.UpdatePosition(deltaX, deltaY);
             Invalidate();
+        }
+
+        public void ShowZIndexMenu(Point mouseCoordinates)
+        {
+            ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+            ToolStripMenuItem bringforwardItem = new ToolStripMenuItem("Bring Forward");
+            ToolStripMenuItem bringBackwardItem = new ToolStripMenuItem("Bring Backward");
+            contextMenuStrip.Items.Add(bringforwardItem);
+            contextMenuStrip.Items.Add(bringBackwardItem);
+            bringforwardItem.Click += BringforwardItem_Click;
+            bringBackwardItem.Click += BringBackwardItem_Click;
+            contextMenuStrip.Show(mouseCoordinates);
+        }
+
+        private void BringBackwardItem_Click(object sender, EventArgs e)
+        {
+            int newZIndex = SelectedObject.ZIndex - 1;
+            HandlePropertyChange(PropertyEnum.ZIndex, newZIndex.ToString(), "int");
+        }
+
+        private void BringforwardItem_Click(object sender, EventArgs e)
+        {
+            int newZIndex = SelectedObject.ZIndex + 1;
+            HandlePropertyChange(PropertyEnum.ZIndex, newZIndex.ToString(), "int");
+        }
+
+        internal void InitEditMode()
+        {
+            switch (SelectedObject)
+            {
+                case RectangleObject rectangleObject:
+                    SetHandler(new RectangleObjectEditHandler(this, rectangleObject));
+                    break;
+
+                // Add other cases for different types of objects as needed
+                default:
+                    // Handle default case if necessary
+                    break;
+            }
         }
     }
 }

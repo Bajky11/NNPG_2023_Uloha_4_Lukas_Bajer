@@ -10,7 +10,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicalObjects
     internal interface IGraphicsObject
     {
         void Draw(Graphics g);
-        void UpdatePosition(int x, int y);
+        void UpdatePosition(int deltaX, int deltaY);
         bool Contains(int x, int y);
     }
 }

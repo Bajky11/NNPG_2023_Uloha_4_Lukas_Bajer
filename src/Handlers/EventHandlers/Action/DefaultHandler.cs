@@ -1,7 +1,10 @@
-﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
+﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers
     {
         private ApplicationHandler AppHandler;
         private bool Drag;
+        private Point LastMousePosition;
 
         public DefaultHandler(ApplicationHandler formHandler)
         {
@@ -23,8 +27,12 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers
         {
             if (e.Button == MouseButtons.Middle)
             {
-                Drag = true;
-                TrySelectObject(e.X, e.Y);
+                var selectedObject = TrySelectObject(e.X, e.Y);
+                if(selectedObject != null)
+                {
+                    Drag = true;
+                    LastMousePosition = e.Location;
+                }
             }
         }
 
@@ -32,7 +40,10 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers
         {
             if (e.Button == MouseButtons.Middle && Drag)
             {
-                AppHandler.HandleMoveObject(e.X, e.Y);
+                int deltaX = e.X - LastMousePosition.X;
+                int deltaY = e.Y - LastMousePosition.Y;
+                LastMousePosition = e.Location;
+                AppHandler.HandleMoveObject(deltaX, deltaY);
             }
         }
 
@@ -45,24 +56,32 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers
             }
             else if (e.Button == MouseButtons.Left)
             {
-                TrySelectObject(e.X, e.Y);
+                var selectedObject = TrySelectObject(e.X, e.Y);
+                if (selectedObject != null)
+                {
+                    AppHandler.InitEditMode();
+                }
             }
             else if (e.Button == MouseButtons.Right)
             {
+                var selectedObject = TrySelectObject(e.X, e.Y);
+                if (selectedObject != null)
+                {
+                    AppHandler.ShowZIndexMenu(new Point(e.X, e.Y));
+                }
             }
         }
 
-        private void TrySelectObject(int x, int y)
+        private GraphicsObject TrySelectObject(int x, int y)
         {
             foreach (var graphicsObject in AppHandler.GetGraphicsObjects())
             {
                 if (graphicsObject.Contains(x, y))
                 {
-                    AppHandler.SetSelectedObject(graphicsObject);
-                    return;
+                    return AppHandler.SetSelectedObject(graphicsObject);
                 }
             }
-            AppHandler.SetSelectedObject(null);
+            return AppHandler.SetSelectedObject(null);
         }
 
         public override void Cancel()
