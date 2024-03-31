@@ -1,4 +1,5 @@
-﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
+﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms;
 using System;
@@ -11,18 +12,18 @@ using System.Windows.Forms;
 
 namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit
 {
-    internal class RectangleObjectEditHandler : Handler
+    internal class LineObjectEditHandler : Handler
     {
+        private LineObject LineObject;
         private ApplicationHandler AppHandler;
-        private RectangleObject RectangleObject;
         private bool Drag;
         private bool Edit;
         private Point LastMousePosition;
 
-        public RectangleObjectEditHandler(ApplicationHandler formHandler, RectangleObject rectangleObject)
+        public LineObjectEditHandler(ApplicationHandler formHandler, LineObject lineObject)
         {
             AppHandler = formHandler;
-            RectangleObject = rectangleObject;
+            LineObject = lineObject;
         }
 
         public override void Canvas_MouseDown(object sender, MouseEventArgs e)
@@ -31,7 +32,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit
             {
                 Drag = true;
                 LastMousePosition = e.Location;
-                if (RectangleObject.ManipulatorContains(e.X, e.Y))
+                if (LineObject.ManipulatorContains(e.X, e.Y))
                 {
                     Edit = true;
                 }
@@ -46,7 +47,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit
                 {
                     int deltaX = e.X - LastMousePosition.X;
                     int deltaY = e.Y - LastMousePosition.Y;
-                    RectangleObject.HandleManipulation(deltaX, deltaY);
+                    LineObject.HandleManipulation(deltaX, deltaY);
                     AppHandler.Invalidate();
                 }
                 LastMousePosition = e.Location;
@@ -59,13 +60,13 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit
             {
                 Drag = false;
                 Edit = false;
-                RectangleObject.ResetManipulation();
+                LineObject.ResetManipulation();
             }
         }
 
         public override void Cancel()
         {
-            Console.WriteLine("RectangleObjectEditHandler: Cancel");
+            Console.WriteLine("LineObjectEditHandler: Cancel");
         }
     }
 }

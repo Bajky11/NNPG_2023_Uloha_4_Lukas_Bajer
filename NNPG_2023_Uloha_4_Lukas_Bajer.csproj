@@ -54,13 +54,26 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\GraphicsObjects\BrokenLineObject.cs" />
+    <Compile Include="src\GraphicsObjects\EllipseObject.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\EditEnum.cs" />
     <Compile Include="src\GraphicsObjects\Parent\EditableObject\EditableObject.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\LineManipulator\MoveManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\LineManipulator\Parent\LineManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\Parent\Manipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\RectangleManipulator\HeightManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\RectangleManipulator\MoveManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\RectangleManipulator\Parent\RectangleManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\RectangleManipulator\SizeManipulator.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\RectangleManipulator\WidthManipulator.cs" />
     <Compile Include="src\GraphicsObjects\Parent\GraphicsObject\GraphicsObject.cs" />
-    <Compile Include="src\GraphicsObjects\Parent\GraphicsObject\IGraphicsObject.cs" />
     <Compile Include="src\GraphicsObjects\LineObject.cs" />
     <Compile Include="src\GraphicsObjects\RectangleObject.cs" />
+    <Compile Include="src\Handlers\EventHandlers\Action\BrokenLineHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Action\DefaultHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Action\DeleteHandler.cs" />
+    <Compile Include="src\Handlers\EventHandlers\Action\EllipseHandler.cs" />
+    <Compile Include="src\Handlers\EventHandlers\Edit\LineObjectEditHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Edit\RectangleObjectEditHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Parent\Handler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Parent\IHandler.cs" />

@@ -122,6 +122,7 @@
             this.ActionEllipse.TabIndex = 2;
             this.ActionEllipse.Text = "Ellispse";
             this.ActionEllipse.UseVisualStyleBackColor = true;
+            this.ActionEllipse.Click += new System.EventHandler(this.ActionEllipse_Click);
             // 
             // ActionBrokenLine
             // 
@@ -131,6 +132,7 @@
             this.ActionBrokenLine.TabIndex = 3;
             this.ActionBrokenLine.Text = "Broken Line";
             this.ActionBrokenLine.UseVisualStyleBackColor = true;
+            this.ActionBrokenLine.Click += new System.EventHandler(this.ActionBrokenLine_Click);
             // 
             // ActionDelete
             // 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects.Parent.EditableObject;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects.Parent.EditableObject.ManipulatorObject.RectangleManipulatorr;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects.Parent.EditableObject.SizeManipulator;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,13 +12,22 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 {
     internal class RectangleObject : GraphicsObject
     {
-        private Rectangle Rectangle;
-        private Rectangle RightBottomManipulator;
+        protected Rectangle Rectangle;
+        private EditEnum EditType = EditEnum.None;
+
+        protected SizeManipulator SizeManipulator;
+        protected WidthManipulator WidthManipulator;
+        protected HeightManipulator HeightManipulator;
+        protected MoveManipulator MoveManipulator;
 
         public RectangleObject(Point startPoint, int width, int height)
         {
             Rectangle = new Rectangle(startPoint.X, startPoint.Y, width, height);
-            RightBottomManipulator = new Rectangle(startPoint.X + width, startPoint.Y + height, 10, 10);
+
+            SizeManipulator = new SizeManipulator(Rectangle.X + Rectangle.Width, Rectangle.Y + Rectangle.Height);
+            HeightManipulator = new HeightManipulator(Rectangle.X + Rectangle.Width, Rectangle.Y + Rectangle.Height / 2);
+            WidthManipulator = new WidthManipulator(Rectangle.X + Rectangle.Width / 2, Rectangle.Y + Rectangle.Height);
+            MoveManipulator = new MoveManipulator(Rectangle.X + Rectangle.Width / 2, Rectangle.Y + Rectangle.Height / 2);
         }
 
         public override bool Contains(int x, int y)
@@ -23,25 +35,65 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
             return Rectangle.Contains(new Point(x, y));
         }
 
+        public void ResetManipulation()
+        {
+            EditType = EditEnum.None;
+        }
+
         public bool ManipulatorContains(int x, int y)
         {
-            return RightBottomManipulator.Contains(new Point(x, y));
+            if (SizeManipulator.Contains(x, y))
+            {
+                EditType = EditEnum.Size;
+                return true;
+            }
+            if (WidthManipulator.Contains(x, y))
+            {
+                EditType = EditEnum.Width;
+                return true;
+            }
+            if (HeightManipulator.Contains(x, y))
+            {
+                EditType = EditEnum.Height;
+                return true;
+            }
+            if (MoveManipulator.Contains(x, y))
+            {
+                EditType = EditEnum.Move;
+                return true;
+            }
+            EditType = EditEnum.None;
+            return false;
         }
 
-        public void UpdateSize(int deltaX, int deltaY)
+        public void HandleManipulation(int deltaX, int deltaY)
         {
-            Rectangle.Width += deltaX;
-            Rectangle.Height += deltaY;
+            switch (EditType)
+            {
+                case EditEnum.Size:
+                    SizeManipulator.HandleManipulation(ref Rectangle, deltaX, deltaY);
+                    break;
+                case EditEnum.Width:
+                    WidthManipulator.HandleManipulation(ref Rectangle, deltaX, deltaY);
+                    break;
+                case EditEnum.Height:
+                    HeightManipulator.HandleManipulation(ref Rectangle, deltaX, deltaY);
+                    break;
+                case EditEnum.Move:
+                    MoveManipulator.HandleManipulation(ref Rectangle, deltaX, deltaY);
+                    break;
+            }
 
-            // Ensure that the rectangle's width and height are non-negative
-            Rectangle.Width = Math.Max(0, Rectangle.Width);
-            Rectangle.Height = Math.Max(0, Rectangle.Height);
-
-            // Update the position of the right-bottom manipulator
-            RightBottomManipulator.X = Rectangle.X + Rectangle.Width;
-            RightBottomManipulator.Y = Rectangle.Y + Rectangle.Height;
+            UpdateManipulatorsPositions();
         }
 
+        public void UpdateManipulatorsPositions()
+        {
+            SizeManipulator.UpdatePosition(Rectangle);
+            WidthManipulator.UpdatePosition(Rectangle);
+            HeightManipulator.UpdatePosition(Rectangle);
+            MoveManipulator.UpdatePosition(Rectangle);
+        }
 
         public override void Draw(Graphics g)
         {
@@ -58,7 +110,10 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
             if (Selected)
             {
                 g.DrawRectangle(Pens.Red, Rectangle);
-                g.FillRectangle(Brushes.Red, RightBottomManipulator);
+                SizeManipulator.Draw(g);
+                WidthManipulator.Draw(g);
+                HeightManipulator.Draw(g);
+                MoveManipulator.Draw(g);
             }
         }
 
@@ -66,8 +121,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
         {
             Rectangle.X += deltaX;
             Rectangle.Y += deltaY;
-            RightBottomManipulator.X += deltaX;
-            RightBottomManipulator.Y += deltaY;
+            UpdateManipulatorsPositions();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicalObjects;
+﻿using NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit;
@@ -34,6 +34,11 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             GraphicsObjects.Add(new RectangleObject(new Point(50, 50), 100, 100));
             GraphicsObjects.Add(new RectangleObject(new Point(150, 150), 100, 100));
             GraphicsObjects.Add(new RectangleObject(new Point(450, 150), 100, 100));
+
+            // Set DoubleBuffering true on panel1
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
+             | BindingFlags.Instance | BindingFlags.NonPublic, null,
+             Canvas, new object[] { true });
         }
 
         public void SetHandler(Handler handler)
@@ -212,11 +217,10 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
                 case RectangleObject rectangleObject:
                     SetHandler(new RectangleObjectEditHandler(this, rectangleObject));
                     break;
-
-                // Add other cases for different types of objects as needed
-                default:
-                    // Handle default case if necessary
+                case LineObject lineObject:
+                    SetHandler(new LineObjectEditHandler(this, lineObject));
                     break;
+
             }
         }
     }

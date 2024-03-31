@@ -2,6 +2,7 @@
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Actions;
+using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Action;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms;
 using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel;
 using System;
@@ -68,6 +69,16 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
         private void PropertySolidColorFill_Click(object sender, EventArgs e)
         {
             ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, true.ToString(), "bool");
+        }
+
+        private void ActionEllipse_Click(object sender, EventArgs e)
+        {
+            ApplicationHandler.SetHandler(new EllipseHandler(ApplicationHandler));
+        }
+
+        private void ActionBrokenLine_Click(object sender, EventArgs e)
+        {
+            ApplicationHandler.SetHandler(new BrokenLineHandler(ApplicationHandler));
         }
     }
 }
