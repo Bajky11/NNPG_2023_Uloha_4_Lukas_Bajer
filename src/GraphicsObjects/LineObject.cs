@@ -108,6 +108,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes
 
         internal void HandleManipulation(int deltaX, int deltaY)
         {
+            Console.WriteLine(EditType);
             switch (EditType)
             {
                 case EditEnum.MoveStartPoint:

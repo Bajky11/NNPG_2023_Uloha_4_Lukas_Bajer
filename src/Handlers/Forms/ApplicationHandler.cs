@@ -220,7 +220,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
                 case LineObject lineObject:
                     SetHandler(new LineObjectEditHandler(this, lineObject));
                     break;
-
+                case BrokenLineObject brokenLine:
+                    SetHandler(new BrokenLineObjectEditHandler(this, brokenLine));
+                    break;
             }
         }
     }
