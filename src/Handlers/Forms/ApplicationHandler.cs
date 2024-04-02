@@ -123,11 +123,11 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             // NOTE: Because of inheritance, if Selected is defined in a base class of obj and not directly in the class of obj, GetProperty might not find it.
             // You may need to specify BindingFlags to search for properties in base classes as well.
             var property = SelectedObject.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
-            Console.WriteLine("Found property: " + property.Name);
+            //Console.WriteLine("Found property: " + property.Name);
             if (property != null)
             {
                 string selectedValue = property.GetValue(SelectedObject).ToString();
-                Console.WriteLine($"Value: {selectedValue}");
+                //Console.WriteLine($"Value: {selectedValue}");
                 switch (propertyValueType)
                 {
                     case "bool":
@@ -142,18 +142,20 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
                         if (success)
                         {
                             property.SetValue(SelectedObject, newIntValue);
-                            Console.WriteLine($"NEW Value: {newIntValue}");
+                            //Console.WriteLine($"NEW Value: {newIntValue}");
                         }
+                        break;
+                    case "color":
 
                         break;
                 }
             }
             else
             {
-                Console.WriteLine($"Property {propertyName} not found.");
+                //Console.WriteLine($"Property {propertyName} not found.");
 
             }
-            Console.WriteLine();
+            //Console.WriteLine();
             Invalidate();
         }
 

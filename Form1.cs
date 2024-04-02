@@ -49,9 +49,20 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
         {
             ApplicationHandler.SetHandler(new RectangleHandler(ApplicationHandler));
         }
+
         private void ActionDelete_Click(object sender, EventArgs e)
         {
             ApplicationHandler.SetHandler(new DeleteHandler(ApplicationHandler));
+        }
+
+        private void ActionEllipse_Click(object sender, EventArgs e)
+        {
+            ApplicationHandler.SetHandler(new EllipseHandler(ApplicationHandler));
+        }
+
+        private void ActionBrokenLine_Click(object sender, EventArgs e)
+        {
+            ApplicationHandler.SetHandler(new BrokenLineHandler(ApplicationHandler));
         }
 
         private void PropertyEdge_CheckedChanged(object sender, EventArgs e)
@@ -63,22 +74,69 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         private void PropertyNoFill_Click(object sender, EventArgs e)
         {
-            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, false.ToString(), "bool");
+
         }
 
         private void PropertySolidColorFill_Click(object sender, EventArgs e)
         {
-            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, true.ToString(), "bool");
+
         }
 
-        private void ActionEllipse_Click(object sender, EventArgs e)
+        private void PropertyHatchFill_Click(object sender, EventArgs e)
         {
-            ApplicationHandler.SetHandler(new EllipseHandler(ApplicationHandler));
+
         }
 
-        private void ActionBrokenLine_Click(object sender, EventArgs e)
+        private void PropertyNoFill_CheckedChanged(object sender, EventArgs e)
         {
-            ApplicationHandler.SetHandler(new BrokenLineHandler(ApplicationHandler));
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyNoFill, PropertyNoFill.Checked.ToString(), "bool");
+            Console.WriteLine("NoFillChanged");
+        }
+
+        private void PropertySolidColorFill_CheckedChanged(object sender, EventArgs e)
+        {
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, PropertySolidColorFill.Checked.ToString(), "bool");
+            Console.WriteLine("SolidFillChanged");
+
+        }
+
+        private void PropertyHatchFill_CheckedChanged(object sender, EventArgs e)
+        {
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyHatchFill, PropertyHatchFill.Checked.ToString(), "bool");
+            Console.WriteLine("HatchFillChanged");
+
+        }
+
+        private void pictureBoxBarvaPozadi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBoxFillColor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PictureBoxEdgeColor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetColorUsingColorDialog(String colorProperty)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (colorProperty)
+                {
+                    case "FILL":
+                        ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFillColor, colorDialog.Color.ToString(), "color");
+                        break;
+                    case "EDGE":
+                        ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdgeColor, colorDialog.Color.ToString(), "color");
+                        break;
+                }
+            }
         }
     }
 }

@@ -10,10 +10,11 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel
     {
         PropertyEdge,
         PropertyFill,
+        PropertyNoFill,
         PropertySolidColorFill,
-
         PropertyHatchFill,
-
+        PropertyEdgeColor,
+        PropertyFillColor,
         ZIndex
     }
 }

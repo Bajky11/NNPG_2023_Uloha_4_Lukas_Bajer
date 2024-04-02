@@ -4,6 +4,7 @@ using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects.Parent.EditableObject.Si
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,14 +98,19 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 
         public override void Draw(Graphics g)
         {
-            if (PropertyFill)
+            if (!PropertyNoFill && PropertyFill)
             {
-                g.FillRectangle(FillBrush, Rectangle);
+                g.FillRectangle(new SolidBrush(PropertyFillColor), Rectangle);
+            }
+
+            if (PropertyHatchFill)
+            {
+                g.FillRectangle(new HatchBrush(PropertyHatchStyle, PropertyFillColor, Color.Transparent), Rectangle);
             }
 
             if (PropertyEdge)
             {
-                g.DrawRectangle(EdgePen, Rectangle);
+                g.DrawRectangle(new Pen(PropertyEdgeColor, PropertyEdgeWidth), Rectangle);
             }
 
             if (Selected)

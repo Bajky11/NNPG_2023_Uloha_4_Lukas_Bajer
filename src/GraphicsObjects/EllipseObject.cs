@@ -3,6 +3,7 @@ using NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects.Parent.EditableObject.Si
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,19 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 
         public override void Draw(Graphics g)
         {
-            if (PropertyFill)
+            if (!PropertyNoFill && PropertyFill)
             {
-                g.FillEllipse(FillBrush, Rectangle);
+                g.FillEllipse(new SolidBrush(PropertyFillColor), Rectangle);
+            }
+
+            if (PropertyHatchFill)
+            {
+                g.FillEllipse(new HatchBrush(PropertyHatchStyle, PropertyFillColor,Color.Transparent), Rectangle);
             }
 
             if (PropertyEdge)
             {
-                g.DrawEllipse(EdgePen, Rectangle);
+                g.DrawEllipse(new Pen(PropertyEdgeColor, PropertyEdgeWidth), Rectangle);
             }
 
             if (Selected)

@@ -89,7 +89,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes
 
         public override void Draw(Graphics g)
         {
-            g.DrawLine(EdgePen, StartPoint, EndPoint);
+            g.DrawLine(new Pen(PropertyEdgeColor, PropertyEdgeWidth), StartPoint, EndPoint);
             if (Selected)
             {
                 StartPointMoveManipulator.Draw(g);

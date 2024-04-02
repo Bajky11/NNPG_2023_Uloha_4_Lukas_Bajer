@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,16 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
     internal abstract class GraphicsObject
     {
         // Form properties
+        public Color PropertyEdgeColor { get; set ; } = Color.Blue;
+        public Color PropertyFillColor { get; set; } = Color.Black;
+        public HatchStyle PropertyHatchStyle { get; set; } = HatchStyle.BackwardDiagonal;
+        public int PropertyEdgeWidth { get; set; } = 4;
+
         public bool PropertyEdge { get; set; } = true;
         public bool PropertyFill { get; set; } = false;
+        public bool PropertyNoFill { get; set; } = true;
+        public bool PropertyHatchFill { get; set; } = false;
         public int ZIndex { get; set; } = 0;
-
-        public Brush FillBrush = Brushes.DarkGray;
-        public Pen EdgePen = Pens.Blue;
 
         // Component Properties
         public bool Selected = false;
