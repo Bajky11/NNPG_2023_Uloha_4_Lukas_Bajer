@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes
 {
-    internal class LineObject : GraphicsObject
+    internal class LineObject : GraphicsObject, IEditableObject
     {
         private Point StartPoint;
         private Point EndPoint;
@@ -106,8 +106,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes
             UpdateManipulatorsPositions();
         }
 
-        internal void HandleManipulation(int deltaX, int deltaY)
+        public void HandleManipulation(int deltaX, int deltaY)
         {
+            Console.WriteLine(EditType);
             switch (EditType)
             {
                 case EditEnum.MoveStartPoint:
@@ -120,7 +121,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Classes
             UpdateManipulatorsPositions();
         }
 
-        internal void ResetManipulation()
+        public void ResetManipulation()
         {
             EditType = EditEnum.None;
         }

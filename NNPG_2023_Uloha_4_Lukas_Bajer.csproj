@@ -57,7 +57,7 @@
     <Compile Include="src\GraphicsObjects\BrokenLineObject.cs" />
     <Compile Include="src\GraphicsObjects\EllipseObject.cs" />
     <Compile Include="src\GraphicsObjects\Parent\EditableObject\EditEnum.cs" />
-    <Compile Include="src\GraphicsObjects\Parent\EditableObject\EditableObject.cs" />
+    <Compile Include="src\GraphicsObjects\Parent\EditableObject\IEditableObject.cs" />
     <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\LineManipulator\MoveManipulator.cs" />
     <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\LineManipulator\Parent\LineManipulator.cs" />
     <Compile Include="src\GraphicsObjects\Parent\EditableObject\ManipulatorObject\Parent\Manipulator.cs" />
@@ -73,6 +73,7 @@
     <Compile Include="src\Handlers\EventHandlers\Action\DefaultHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Action\DeleteHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Action\EllipseHandler.cs" />
+    <Compile Include="src\Handlers\EventHandlers\Edit\BrokenLineObjectEditHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Edit\LineObjectEditHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Edit\RectangleObjectEditHandler.cs" />
     <Compile Include="src\Handlers\EventHandlers\Parent\Handler.cs" />
