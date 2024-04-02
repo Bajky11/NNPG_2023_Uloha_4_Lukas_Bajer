@@ -110,7 +110,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 
             if (PropertyEdge)
             {
-                g.DrawRectangle(new Pen(PropertyEdgeColor, PropertyEdgeWidth), Rectangle);
+                Pen newPen = new Pen(PropertyEdgeColor, PropertyEdgeWidth);
+                newPen.DashStyle = PropertyEdgeStyle;
+                g.DrawRectangle(newPen, Rectangle);
             }
 
             if (Selected)

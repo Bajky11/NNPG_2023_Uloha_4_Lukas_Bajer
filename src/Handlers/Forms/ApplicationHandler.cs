@@ -6,6 +6,7 @@ using NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -105,7 +106,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
             if (SelectedObject != null)
             {
                 SelectedObject.Selected = true;
-                PropertiesPanelHandler.SetProperties(SelectedObject.PropertyEdge, SelectedObject.PropertyFill);
+                PropertiesPanelHandler.SetProperties(SelectedObject);
             }
 
             Invalidate();
@@ -138,21 +139,35 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
 
                     case "int":
                         int newIntValue;
-                        bool success = int.TryParse(propertyValue, out newIntValue);
-                        if (success)
+                        bool intParseSuccess = int.TryParse(propertyValue, out newIntValue);
+                        if (intParseSuccess)
                         {
                             property.SetValue(SelectedObject, newIntValue);
                             //Console.WriteLine($"NEW Value: {newIntValue}");
                         }
                         break;
                     case "color":
-
+                        int newArgb;
+                        bool argbParseSuccess = int.TryParse(propertyValue, out newArgb);
+                        if (argbParseSuccess)
+                        {
+                            Color newColor = Color.FromArgb(newArgb);
+                            property.SetValue(SelectedObject, newColor);
+                        }
+                        break;
+                    case "hatchstyle":
+                        HatchStyle newHatch = (HatchStyle)Enum.Parse(typeof(HatchStyle), propertyValue, true);
+                        property.SetValue(SelectedObject, newHatch);
+                        break;
+                    case "dashstyle":
+                        DashStyle newDashStyle = (DashStyle)Enum.Parse(typeof(DashStyle), propertyValue, true);
+                        property.SetValue(SelectedObject, newDashStyle);
                         break;
                 }
             }
             else
             {
-                //Console.WriteLine($"Property {propertyName} not found.");
+                Console.WriteLine($"Property {propertyName} not found.");
 
             }
             //Console.WriteLine();
@@ -226,6 +241,25 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
                     SetHandler(new BrokenLineObjectEditHandler(this, brokenLine));
                     break;
             }
+        }
+
+        public Color SetColorUsingColorDialog(String colorProperty)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (colorProperty)
+                {
+                    case "FILL":
+                        HandlePropertyChange(PropertyEnum.PropertyFillColor, colorDialog.Color.ToArgb().ToString(), "color");
+                        break;
+                    case "EDGE":
+                        HandlePropertyChange(PropertyEnum.PropertyEdgeColor, colorDialog.Color.ToArgb().ToString(), "color");
+                        break;
+                }
+                return colorDialog.Color;
+            }
+            return Color.Empty;
         }
     }
 }

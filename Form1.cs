@@ -26,8 +26,11 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
         {
             InitializeComponent();
             Canvas.Paint += Canvas_Paint;
-            PropertiesPanelHandler = new PropertiesPanelHandler(PropertyEdge, PropertyNoFill, PropertySolidColorFill);
+            PropertiesPanelHandler = new PropertiesPanelHandler(PropertyEdge, PictureBoxEdgeColor, PropertyEdgeStyle, PropertyEdgeWidth, PropertyNoFill, PropertySolidColorFill, PropertyHatchFill, PictureBoxFillColor, PropertyHatchStyle);
             ApplicationHandler = new ApplicationHandler(Canvas, PropertiesPanelHandler);
+
+            PropertiesPanelHandler.ComboBoxHashStyleInit(PropertyHatchStyle);
+            PropertiesPanelHandler.ComboBoxEdgeStyleInit(PropertyEdgeStyle);
         }
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
@@ -68,23 +71,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
         private void PropertyEdge_CheckedChanged(object sender, EventArgs e)
         {
             if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return;
-
             ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdge, PropertyEdge.Checked.ToString(), "bool");
-        }
-
-        private void PropertyNoFill_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PropertySolidColorFill_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PropertyHatchFill_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void PropertyNoFill_CheckedChanged(object sender, EventArgs e)
@@ -107,36 +94,32 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         }
 
-        private void pictureBoxBarvaPozadi_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void PictureBoxFillColor_Click(object sender, EventArgs e)
         {
+            Color newColor = ApplicationHandler.SetColorUsingColorDialog("FILL");
+            if (newColor != Color.Empty) PictureBoxFillColor.BackColor = newColor;
 
         }
 
         private void PictureBoxEdgeColor_Click(object sender, EventArgs e)
         {
-
+            Color newColor = ApplicationHandler.SetColorUsingColorDialog("EDGE");
+            if (newColor != Color.Empty) PictureBoxEdgeColor.BackColor = newColor;
         }
 
-        private void SetColorUsingColorDialog(String colorProperty)
+        private void PropertyEdgeWidth_ValueChanged(object sender, EventArgs e)
         {
-            ColorDialog colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                switch (colorProperty)
-                {
-                    case "FILL":
-                        ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFillColor, colorDialog.Color.ToString(), "color");
-                        break;
-                    case "EDGE":
-                        ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdgeColor, colorDialog.Color.ToString(), "color");
-                        break;
-                }
-            }
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdgeWidth, PropertyEdgeWidth.Value.ToString(), "int");
+        }
+
+        private void PropertyEdgeStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyEdgeStyle, PropertyEdgeStyle.Text, "dashstyle");
+        }
+
+        private void PropertyHatchStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyHatchStyle, PropertyHatchStyle.Text, "hatchstyle");
         }
     }
 }

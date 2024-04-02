@@ -28,7 +28,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 
             if (PropertyEdge)
             {
-                g.DrawEllipse(new Pen(PropertyEdgeColor, PropertyEdgeWidth), Rectangle);
+                Pen newPen = new Pen(PropertyEdgeColor, PropertyEdgeWidth);
+                newPen.DashStyle = PropertyEdgeStyle;
+                g.DrawEllipse(newPen, Rectangle);
             }
 
             if (Selected)

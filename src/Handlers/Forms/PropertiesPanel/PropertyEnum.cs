@@ -15,6 +15,9 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms.PropertiesPanel
         PropertyHatchFill,
         PropertyEdgeColor,
         PropertyFillColor,
+        PropertyEdgeWidth,
+        PropertyHatchStyle,
+        PropertyEdgeStyle,
         ZIndex
     }
 }

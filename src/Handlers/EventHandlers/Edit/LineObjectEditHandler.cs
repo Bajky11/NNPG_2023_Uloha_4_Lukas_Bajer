@@ -36,6 +36,10 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.EventHandlers.Edit
                 {
                     Edit = true;
                 }
+                else
+                {
+                    AppHandler.HandleCancelAction(new DefaultHandler(AppHandler));
+                }
             }
         }
 

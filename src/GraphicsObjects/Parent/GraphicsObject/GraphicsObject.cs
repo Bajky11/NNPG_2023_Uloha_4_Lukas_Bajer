@@ -14,8 +14,8 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
         public Color PropertyEdgeColor { get; set ; } = Color.Blue;
         public Color PropertyFillColor { get; set; } = Color.Black;
         public HatchStyle PropertyHatchStyle { get; set; } = HatchStyle.BackwardDiagonal;
-        public int PropertyEdgeWidth { get; set; } = 4;
-
+        public DashStyle PropertyEdgeStyle { get; set; } = DashStyle.Solid;
+        public int PropertyEdgeWidth { get; set; } = 2;
         public bool PropertyEdge { get; set; } = true;
         public bool PropertyFill { get; set; } = false;
         public bool PropertyNoFill { get; set; } = true;

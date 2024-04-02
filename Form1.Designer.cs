@@ -40,17 +40,21 @@
             this.Canvas = new System.Windows.Forms.Panel();
             this.splitContainerProperties = new System.Windows.Forms.SplitContainer();
             this.ProperiesPanelEdge = new System.Windows.Forms.GroupBox();
-            this.okrajStyl = new System.Windows.Forms.ComboBox();
-            this.tloustkaOkrajeSetting = new System.Windows.Forms.NumericUpDown();
+            this.PropertyEdgeStyle = new System.Windows.Forms.ComboBox();
+            this.PropertyEdgeWidth = new System.Windows.Forms.NumericUpDown();
             this.PictureBoxEdgeColor = new System.Windows.Forms.PictureBox();
             this.PropertyEdge = new System.Windows.Forms.CheckBox();
             this.PropertiesPanelFill = new System.Windows.Forms.GroupBox();
             this.PictureBoxFillColor = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxSrafovaniSUkazkou = new System.Windows.Forms.ComboBox();
+            this.PropertyHatchStyle = new System.Windows.Forms.ComboBox();
             this.PropertyHatchFill = new System.Windows.Forms.RadioButton();
             this.PropertySolidColorFill = new System.Windows.Forms.RadioButton();
             this.PropertyNoFill = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTop)).BeginInit();
             this.splitContainerTop.Panel1.SuspendLayout();
             this.splitContainerTop.Panel2.SuspendLayout();
@@ -65,7 +69,7 @@
             this.splitContainerProperties.Panel2.SuspendLayout();
             this.splitContainerProperties.SuspendLayout();
             this.ProperiesPanelEdge.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tloustkaOkrajeSetting)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PropertyEdgeWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxEdgeColor)).BeginInit();
             this.PropertiesPanelFill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFillColor)).BeginInit();
@@ -208,8 +212,11 @@
             // 
             // ProperiesPanelEdge
             // 
-            this.ProperiesPanelEdge.Controls.Add(this.okrajStyl);
-            this.ProperiesPanelEdge.Controls.Add(this.tloustkaOkrajeSetting);
+            this.ProperiesPanelEdge.Controls.Add(this.label4);
+            this.ProperiesPanelEdge.Controls.Add(this.label2);
+            this.ProperiesPanelEdge.Controls.Add(this.label1);
+            this.ProperiesPanelEdge.Controls.Add(this.PropertyEdgeStyle);
+            this.ProperiesPanelEdge.Controls.Add(this.PropertyEdgeWidth);
             this.ProperiesPanelEdge.Controls.Add(this.PictureBoxEdgeColor);
             this.ProperiesPanelEdge.Controls.Add(this.PropertyEdge);
             this.ProperiesPanelEdge.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -220,36 +227,38 @@
             this.ProperiesPanelEdge.TabStop = false;
             this.ProperiesPanelEdge.Text = "Okraj";
             // 
-            // okrajStyl
+            // PropertyEdgeStyle
             // 
-            this.okrajStyl.FormattingEnabled = true;
-            this.okrajStyl.Location = new System.Drawing.Point(149, 89);
-            this.okrajStyl.Name = "okrajStyl";
-            this.okrajStyl.Size = new System.Drawing.Size(121, 21);
-            this.okrajStyl.TabIndex = 2;
+            this.PropertyEdgeStyle.FormattingEnabled = true;
+            this.PropertyEdgeStyle.Location = new System.Drawing.Point(88, 93);
+            this.PropertyEdgeStyle.Name = "PropertyEdgeStyle";
+            this.PropertyEdgeStyle.Size = new System.Drawing.Size(121, 21);
+            this.PropertyEdgeStyle.TabIndex = 2;
+            this.PropertyEdgeStyle.SelectedIndexChanged += new System.EventHandler(this.PropertyEdgeStyle_SelectedIndexChanged);
             // 
-            // tloustkaOkrajeSetting
+            // PropertyEdgeWidth
             // 
-            this.tloustkaOkrajeSetting.AccessibleName = "tloustkaOkraje";
-            this.tloustkaOkrajeSetting.Location = new System.Drawing.Point(294, 93);
-            this.tloustkaOkrajeSetting.Minimum = new decimal(new int[] {
+            this.PropertyEdgeWidth.AccessibleName = "PropertyEdgeWidth";
+            this.PropertyEdgeWidth.Location = new System.Drawing.Point(89, 136);
+            this.PropertyEdgeWidth.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.tloustkaOkrajeSetting.Name = "tloustkaOkrajeSetting";
-            this.tloustkaOkrajeSetting.Size = new System.Drawing.Size(120, 20);
-            this.tloustkaOkrajeSetting.TabIndex = 3;
-            this.tloustkaOkrajeSetting.Value = new decimal(new int[] {
+            this.PropertyEdgeWidth.Name = "PropertyEdgeWidth";
+            this.PropertyEdgeWidth.Size = new System.Drawing.Size(120, 20);
+            this.PropertyEdgeWidth.TabIndex = 3;
+            this.PropertyEdgeWidth.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.PropertyEdgeWidth.ValueChanged += new System.EventHandler(this.PropertyEdgeWidth_ValueChanged);
             // 
             // PictureBoxEdgeColor
             // 
             this.PictureBoxEdgeColor.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.PictureBoxEdgeColor.Location = new System.Drawing.Point(40, 89);
+            this.PictureBoxEdgeColor.Location = new System.Drawing.Point(88, 47);
             this.PictureBoxEdgeColor.Name = "PictureBoxEdgeColor";
             this.PictureBoxEdgeColor.Size = new System.Drawing.Size(23, 21);
             this.PictureBoxEdgeColor.TabIndex = 4;
@@ -269,9 +278,10 @@
             // 
             // PropertiesPanelFill
             // 
+            this.PropertiesPanelFill.Controls.Add(this.label5);
             this.PropertiesPanelFill.Controls.Add(this.PictureBoxFillColor);
             this.PropertiesPanelFill.Controls.Add(this.label3);
-            this.PropertiesPanelFill.Controls.Add(this.comboBoxSrafovaniSUkazkou);
+            this.PropertiesPanelFill.Controls.Add(this.PropertyHatchStyle);
             this.PropertiesPanelFill.Controls.Add(this.PropertyHatchFill);
             this.PropertiesPanelFill.Controls.Add(this.PropertySolidColorFill);
             this.PropertiesPanelFill.Controls.Add(this.PropertyNoFill);
@@ -286,7 +296,7 @@
             // PictureBoxFillColor
             // 
             this.PictureBoxFillColor.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.PictureBoxFillColor.Location = new System.Drawing.Point(71, 85);
+            this.PictureBoxFillColor.Location = new System.Drawing.Point(105, 47);
             this.PictureBoxFillColor.Name = "PictureBoxFillColor";
             this.PictureBoxFillColor.Size = new System.Drawing.Size(23, 21);
             this.PictureBoxFillColor.TabIndex = 3;
@@ -296,19 +306,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(111, 93);
+            this.label3.Location = new System.Drawing.Point(14, 96);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Styl pozadí";
+            this.label3.Text = "Styl pozadí:";
             // 
-            // comboBoxSrafovaniSUkazkou
+            // PropertyHatchStyle
             // 
-            this.comboBoxSrafovaniSUkazkou.FormattingEnabled = true;
-            this.comboBoxSrafovaniSUkazkou.Location = new System.Drawing.Point(201, 89);
-            this.comboBoxSrafovaniSUkazkou.Name = "comboBoxSrafovaniSUkazkou";
-            this.comboBoxSrafovaniSUkazkou.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxSrafovaniSUkazkou.TabIndex = 11;
+            this.PropertyHatchStyle.FormattingEnabled = true;
+            this.PropertyHatchStyle.Location = new System.Drawing.Point(105, 88);
+            this.PropertyHatchStyle.Name = "PropertyHatchStyle";
+            this.PropertyHatchStyle.Size = new System.Drawing.Size(121, 21);
+            this.PropertyHatchStyle.TabIndex = 11;
+            this.PropertyHatchStyle.SelectedIndexChanged += new System.EventHandler(this.PropertyHatchStyle_SelectedIndexChanged);
             // 
             // PropertyHatchFill
             // 
@@ -321,7 +332,6 @@
             this.PropertyHatchFill.Text = "Šrafování";
             this.PropertyHatchFill.UseVisualStyleBackColor = true;
             this.PropertyHatchFill.CheckedChanged += new System.EventHandler(this.PropertyHatchFill_CheckedChanged);
-            this.PropertyHatchFill.Click += new System.EventHandler(this.PropertyHatchFill_Click);
             // 
             // PropertySolidColorFill
             // 
@@ -334,7 +344,6 @@
             this.PropertySolidColorFill.Text = "Jednolitá barva";
             this.PropertySolidColorFill.UseVisualStyleBackColor = true;
             this.PropertySolidColorFill.CheckedChanged += new System.EventHandler(this.PropertySolidColorFill_CheckedChanged);
-            this.PropertySolidColorFill.Click += new System.EventHandler(this.PropertySolidColorFill_Click);
             // 
             // PropertyNoFill
             // 
@@ -347,7 +356,42 @@
             this.PropertyNoFill.Text = "Bez výplně";
             this.PropertyNoFill.UseVisualStyleBackColor = true;
             this.PropertyNoFill.CheckedChanged += new System.EventHandler(this.PropertyNoFill_CheckedChanged);
-            this.PropertyNoFill.Click += new System.EventHandler(this.PropertyNoFill_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Barva okraje:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 97);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Styl okraje:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 138);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Šířka okraje:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Barva objektu:";
             // 
             // Form1
             // 
@@ -372,7 +416,7 @@
             this.splitContainerProperties.ResumeLayout(false);
             this.ProperiesPanelEdge.ResumeLayout(false);
             this.ProperiesPanelEdge.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tloustkaOkrajeSetting)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PropertyEdgeWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxEdgeColor)).EndInit();
             this.PropertiesPanelFill.ResumeLayout(false);
             this.PropertiesPanelFill.PerformLayout();
@@ -400,12 +444,16 @@
         private System.Windows.Forms.RadioButton PropertyHatchFill;
         private System.Windows.Forms.RadioButton PropertySolidColorFill;
         private System.Windows.Forms.Button ActionDelete;
-        private System.Windows.Forms.ComboBox okrajStyl;
-        private System.Windows.Forms.NumericUpDown tloustkaOkrajeSetting;
+        private System.Windows.Forms.ComboBox PropertyEdgeStyle;
+        private System.Windows.Forms.NumericUpDown PropertyEdgeWidth;
         private System.Windows.Forms.PictureBox PictureBoxEdgeColor;
         private System.Windows.Forms.PictureBox PictureBoxFillColor;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxSrafovaniSUkazkou;
+        private System.Windows.Forms.ComboBox PropertyHatchStyle;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
     }
 }
 
