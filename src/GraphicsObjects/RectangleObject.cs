@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.GraphicsObjects
 {
-    internal class RectangleObject : GraphicsObject
+    internal class RectangleObject : GraphicsObject, IEditableObject
     {
         protected Rectangle Rectangle;
         private EditEnum EditType = EditEnum.None;

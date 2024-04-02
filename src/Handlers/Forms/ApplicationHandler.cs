@@ -173,7 +173,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer.src.Handlers.Forms
         {
             if (SelectedObject == null) return;
 
-            SelectedObject.Selected = false;
+            SelectedObject.Reset();
             SelectedObject = null;
             Invalidate();
         }
