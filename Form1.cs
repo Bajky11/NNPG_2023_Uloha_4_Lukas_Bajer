@@ -76,12 +76,14 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         private void PropertyNoFill_CheckedChanged(object sender, EventArgs e)
         {
+            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return;
             ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyNoFill, PropertyNoFill.Checked.ToString(), "bool");
             Console.WriteLine("NoFillChanged");
         }
 
         private void PropertySolidColorFill_CheckedChanged(object sender, EventArgs e)
         {
+            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return;
             ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyFill, PropertySolidColorFill.Checked.ToString(), "bool");
             Console.WriteLine("SolidFillChanged");
 
@@ -89,6 +91,7 @@ namespace NNPG_2023_Uloha_4_Lukas_Bajer
 
         private void PropertyHatchFill_CheckedChanged(object sender, EventArgs e)
         {
+            if (PropertiesPanelHandler.ShouldSuppressChangeEvent()) return;
             ApplicationHandler.HandlePropertyChange(PropertyEnum.PropertyHatchFill, PropertyHatchFill.Checked.ToString(), "bool");
             Console.WriteLine("HatchFillChanged");
 
